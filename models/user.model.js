@@ -10,10 +10,6 @@ const userSchema =  new Schema({
         type: String,
         trim: true,
     },
-    products: [{
-        type: Schema.Types.ObjectId,
-        ref: "Products",
-    }]
 },
 {
     timestamps: true

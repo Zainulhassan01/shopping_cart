@@ -2,8 +2,8 @@ const users = require("../models/user.model");
 const products = require("../models/product.model")
 
 const getAllUserProducts = async (req, res) => {
-//   const allProducts = await products.where({owner_id: req.params.id});
-  res.send('allProducts');
+  const allProducts = await products.where({user: req.params.id});
+  res.status(200).send(allProducts);
 };
 
 const createUser = async (req, res) => {
