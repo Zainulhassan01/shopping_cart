@@ -7,9 +7,11 @@ const getAllProducts = async (req, res) => {
 
 const createProduct = async (req, res) => {
   const { name, price } = req.body;
+  const user = req.params.id;
   const data = new products({
     name,
     price,
+    user,
   });
   const newProduct = await data.save();
   res.status(200).send(newProduct);

@@ -1,8 +1,10 @@
 const express = require('express')
 const userRoutes = express.Router()
+const  {getAllUserProducts, createUser} = require('../controllers/user.controller')
 
-userRoutes.post('/user/', (req, res) => res.send('users'))
 
-userRoutes.get('/user/:id/products', (req, res) => res.send('users product'))
+userRoutes.post('/user/', createUser)
+
+userRoutes.get('/user/:id/products', getAllUserProducts)
 
 module.exports = userRoutes

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const {Schema} = require('mongoose')
 const userSchema =  new Schema({
-    tName: {
+    name: {
         type: String,
         required: true,
         trim: true,
@@ -9,11 +9,15 @@ const userSchema =  new Schema({
     email: {
         type: String,
         trim: true,
-    }
+    },
+    products: [{
+        type: Schema.Types.ObjectId,
+        ref: "Products",
+    }]
 },
 {
     timestamps: true
 }
 );
-const Users = mongoose.model("user", userSchema);
+const Users = mongoose.model("Users", userSchema);
 module.exports = Users;

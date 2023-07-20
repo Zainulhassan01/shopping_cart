@@ -4,7 +4,7 @@ const  {getAllProducts, createProduct, getOneProduct} = require('../controllers/
 
 productRoutes.get('/products/', getAllProducts)
 
-productRoutes.post('/product/', createProduct)
+productRoutes.post('/user/:id/product/', createProduct)
 
 productRoutes.get('/products/:id',getOneProduct)
 
