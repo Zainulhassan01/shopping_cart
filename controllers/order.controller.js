@@ -9,34 +9,41 @@ const getAllUserOrders = async (req, res) => {
 const createOrder = async (req, res) => {
   const user = req.params.id
   const { products } = req.body
-  let totalprice = priceCalculator(products)
-
-  const data = new orders({
-    products,
-    totalprice,
-    user,
-  });
-  const newOrder = await data.save()
-
-  res.status(200).send(newOrder)
+  let totalprice = 0
+  priceCalculator(products)
+  .then(async (result) => {
+    totalprice = result
+    const data = new orders({
+      products,
+      totalprice,
+      user,
+    });
+    const newOrder = await data.save()
+    res.status(200).send(newOrder)
+  })
+  .catch((error) => res.status(404).send(error))
 };
 
 const updateOrder = async(req, res) => {
   const id = req.params.id
   const user = req.params.user_id
   const { products } = req.body
-  let totalprice = priceCalculator(products)
-
-  try {
-    await orders.findByIdAndUpdate(id, {
-      products: req.body.products,
-      totalprice: totalprice,
-      user: user
-    })
-    res.status(200).send('OK')
-  }catch(err){
-    res.status(404).send(err)
-  }
+  let totalprice = 0
+  priceCalculator(products)
+  .then(async (result) => {
+    totalprice = result
+    try {
+      await orders.findByIdAndUpdate(id, {
+        products: req.body.products,
+        totalprice: totalprice,
+        user: user
+      })
+      res.status(200).send('OK')
+    }catch(err){
+      res.status(404).send(err)
+    }
+  })
+  .catch((error) => {res.status(404).send(error)})
 }
 
 const deleteOrder = async(req, res) => {

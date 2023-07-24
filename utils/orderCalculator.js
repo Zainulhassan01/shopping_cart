@@ -15,4 +15,4 @@ const priceCalculator = async (products) => {
   return totalprice
 }
 
-module.exports = { priceCalculator }
+module.exports = priceCalculator 
