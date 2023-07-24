@@ -31,4 +31,14 @@ const createOrder = async (req, res) => {
   res.status(200).send(newOrder)
 };
 
-module.exports = { getAllUserOrders, createOrder }
+const deleteOrder = async(req, res) => {
+    const id = req.params.id
+    try {
+        await orders.findByIdAndRemove(id)
+        res.status(200).send('OK')
+      } catch (err) {
+        res.status(404).send(err)
+      }  
+}
+
+module.exports = { getAllUserOrders, createOrder, deleteOrder }
