@@ -1,5 +1,5 @@
 const orders = require("../models/order.model")
-const Products = require("../models/product.model")
+const priceCalculator = require("../utils/orderCalculator")
 
 const getAllUserOrders = async (req, res) => {
   const allOrders = await orders.where({user: req.params.id})
@@ -9,17 +9,7 @@ const getAllUserOrders = async (req, res) => {
 const createOrder = async (req, res) => {
   const user = req.params.id
   const { products } = req.body
-  let totalprice = 0
-  for (const product of products) {
-    let desiredProduct = await Products.findById(product.product)
-    totalprice = totalprice + (parseInt(desiredProduct.price.replace('$', '')) * product.quantity)
-  }
-
-  if (totalprice > 0) {
-    totalprice = '$' + totalprice
-  } else {
-    totalprice = '$0'
-  }
+  let totalprice = priceCalculator(products)
 
   const data = new orders({
     products,
@@ -35,18 +25,7 @@ const updateOrder = async(req, res) => {
   const id = req.params.id
   const user = req.params.user_id
   const { products } = req.body
-
-  let totalprice = 0
-  for (const product of products) {
-    let desiredProduct = await Products.findById(product.product)
-    totalprice = totalprice + (parseInt(desiredProduct.price.replace('$', '')) * product.quantity)
-  }
-
-  if (totalprice > 0) {
-    totalprice = '$' + totalprice
-  } else {
-    totalprice = '$0'
-  }
+  let totalprice = priceCalculator(products)
 
   try {
     await orders.findByIdAndUpdate(id, {
