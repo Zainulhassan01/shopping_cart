@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const {connectDb} = require('./db')
 const productRoutes = require('./routes/productRoutes')
 const userRoutes = require('./routes/userRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 const app = express()
 
 app.use(bodyParser.json());
@@ -12,8 +13,9 @@ app.use(express.urlencoded({extended: true}));
 connectDb();
 app.use(
     '/api',
+    userRoutes,
     productRoutes,
-    userRoutes
+    orderRoutes,
 )
 console.log(listEndpoints(app));
 
