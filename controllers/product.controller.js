@@ -20,4 +20,16 @@ const getOneProduct = async (req, res) => {
    res.status(200).send(product)
 };
 
-module.exports = { getAllProducts, createProduct, getOneProduct };
+const updateProduct = async (req, res) => {
+  try {
+    const updatedProduct = await products.findByIdAndUpdate(req.params.id, {
+                            name: req.body.name,
+                            price: req.body.price
+                          })
+    res.status(200).send('Updated')
+  }catch(err){
+    res.status(404).send(err)
+  }
+}
+
+module.exports = { getAllProducts, createProduct, getOneProduct, updateProduct };
