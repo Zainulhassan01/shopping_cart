@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const listEndpoints = require('express-list-endpoints')
 const bodyParser = require('body-parser')
 const {connectDb} = require('./db')
@@ -6,6 +7,7 @@ const productRoutes = require('./routes/productRoutes')
 const userRoutes = require('./routes/userRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const app = express()
+app.use(cors())
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
