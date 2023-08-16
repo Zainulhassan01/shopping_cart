@@ -56,4 +56,8 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-module.exports = { getAllUserOrders, createOrder, updateOrder, deleteOrder };
+const checkoutOrder = async(req, res) => {
+  res.status(200).send(req.body)
+}
+
+module.exports = { getAllUserOrders, createOrder, updateOrder, deleteOrder, checkoutOrder };
