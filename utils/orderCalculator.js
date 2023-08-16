@@ -1,10 +1,12 @@
 const Products = require("../models/product.model")
 
 const priceCalculator = async (products) => {
-    let totalprice = 0
+  console.log(products)
+  let totalprice = 0
   for (const product of products) {
-    let desiredProduct = await Products.findById(product.product)
-    totalprice = totalprice + (parseInt(desiredProduct.price.replace('$', '')) * product.quantity)
+    let desiredProduct = await Products.findById(product._id)
+    let quantity = product.quantity ? product.quantity : 1
+    totalprice = totalprice + (parseInt(desiredProduct.price.replace('$', '')) * quantity)
   }
 
   if (totalprice > 0) {
